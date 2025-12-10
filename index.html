@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remembrance</title>
+
+    <!--link to a-frame library - CDN -->
+    <script src="//aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.6.0/dist/aframe-extras.min.js"></script>
+    <!--extras library-->
+    <!--library for events setting on panels-->
+    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+    <!--environment component-->
+    <script src="//unpkg.com/aframe-environment-component@1.0.0/dist/aframe-environment-component.min.js"></script>
+    <!-- For animations yup -->
+    <script src="js/customFunctions.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <!---------------------------------------PRELOADING-->
+      <a-assets>
+        <!---- Models ---->
+        <a-asset-item
+          id="ground"
+          src="3dAssets/models/Scene/ground.gltf"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="groundMesh"
+          src="3dAssets/models/Scene/groundMeshField.glb"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="helmet"
+          src="3dAssets/models/Items/Helmet.gltf"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="rifle"
+          src="3dAssets/models/Items/Rifle.gltf"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="dove"
+          src="3dAssets/models/Items/Dove.gltf"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="cross"
+          src="3dAssets/models/Items/cross.gltf"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="poppy"
+          src="3dAssets/models/Items/Poppies.gltf"
+        ></a-asset-item>
+        <!----- audio ---->
+        <audio id="clickSound" src="3dAssets/audio/click.ogg"></audio>
+        <!---- images ---->
+        <img src="3dAssets/images/posters/Poster.png" id="poster1" />
+
+        <img src="3dAssets/images/posters/Poster2.png" id="poster2" />
+
+        <img src="3dAssets/images/posters/Poster3.png" id="poster3" />
+
+        <img src="3dAssets/images/posters/Poster4.png" id="poster4" />
+
+        <img src="3dAssets/images/posters/Poster5.png" id="poster5" />
+      </a-assets>
+
+      <!----------------------------------------------------------------------SCENE-->
+
+      <a-entity
+        gltf-model="#ground"
+        scale="2 2 2"
+        position="0 0 0"
+        shadow="receive:true"
+      ></a-entity>
+
+      <a-entity
+        gltf-model="#groundMesh"
+        nav-mesh
+        scale="2 2 2"
+        position="0 -0.2 0"
+        visible="false"
+      ></a-entity>
+
+      <a-entity
+        id="theHelmet"
+        gltf-model="#helmet"
+        position="-9 -2 -1.2"
+        scale="2 2 2"
+        rotation="0 0 0"
+        trigger-poster3-click
+        event-set__mouseenter="_target:#ring; color:#9E2509; scale:0.6 0.6 0.6"
+        event-set__mouseleave="_target:#ring; color:#0BFBFF; scale:0.3 0.3 0.3"
+      ></a-entity>
+
+      <a-entity
+        id="theRifle"
+        gltf-model="#rifle"
+        scale="2 2 2"
+        position="-4.8 -1.3 -2.35"
+        shadow="cast: true"
+        trigger-poster4-click
+        event-set__mouseenter="_target:#ring; color:#9E2509; scale:0.6 0.6 0.6"
+        event-set__mouseleave="_target:#ring; color:#0BFBFF; scale:0.3 0.3 0.3"
+      ></a-entity>
+
+      <a-entity
+        id="bird"
+        gltf-model="#dove"
+        scale="2 2 2"
+        position="0.05 0.98 -0.7"
+        trigger-poster5-click
+        event-set__mouseenter="_target:#ring; color:#9E2509; scale:0.6 0.6 0.6"
+        event-set__mouseleave="_target:#ring; color:#0BFBFF; scale:0.3 0.3 0.3"
+      ></a-entity>
+
+      <a-entity
+        id="theCross"
+        gltf-model="#cross"
+        scale="2 2 2"
+        position="3.1 0.6 -3.9"
+        trigger-poster1-click
+        event-set__mouseenter="_target:#ring; color:#9E2509; scale:0.6 0.6 0.6"
+        event-set__mouseleave="_target:#ring; color:#0BFBFF; scale:0.3 0.3 0.3"
+      ></a-entity>
+
+      <a-entity
+        id="thePoppies"
+        gltf-model="#poppy"
+        scale="2 2 2"
+        position="6 0.1 -2.5"
+        trigger-poster2-click
+        event-set__mouseenter="_target:#ring; color:#9E2509; scale:0.6 0.6 0.6"
+        event-set__mouseleave="_target:#ring; color:#0BFBFF; scale:0.3 0.3 0.3"
+        animation=""
+      ></a-entity>
+
+      <a-entity
+        id="Audiobird"
+        gltf-model="#dove"
+        scale="2 2 2"
+        position="7 2.98 -3"
+        visible="false"
+        sound="src: 3dAssets/audio/Peace.mp3; autoplay:true; volume: 0.3;"
+      ></a-entity>
+
+      <!-- -------------------------------------------------------------------------POSTERS -->
+
+      <a-box
+        id="posterOne"
+        height="1"
+        width="1"
+        depth="0.01"
+        position="4 -0.6 -3.8"
+        material="src:#poster1; shader: flat;"
+        rotation="0 -20 0"
+        event-set__mouseenter="_target:#ring; color:#9E2509; scale:0.6 0.6 0.6"
+        event-set__mouseleave="_target:#ring; color:#0BFBFF; scale:0.3 0.3 0.3"
+        animation__reveal="property:position; to: 4 0.6 -3.8; dur: 1000; startEvents:runAnimation;"
+        animation__hide="property:position; to: 4 -0.6 -3.8; dur: 1000; startEvents:click;"
+      >
+      </a-box>
+
+      <a-box
+        id="posterTwo"
+        height="1"
+        width="1"
+        depth="0.01"
+        position="6 -0.9 -2.5"
+        material="src:#poster2; shader: flat;"
+        rotation="0 90 0"
+        event-set__mouseenter="_target:#ring; color:#9E2509; scale:0.6 0.6 0.6"
+        event-set__mouseleave="_target:#ring; color:#0BFBFF; scale:0.3 0.3 0.3"
+        animation__reveal="property:position; to: 6 0.9 -2.5; dur: 1000; startEvents:runAnimation;"
+        animation__hide="property:position; to: 6 -0.9 -2.5; dur: 1000; startEvents:click;"
+      >
+      </a-box>
+
+      <a-box
+        id="posterThree"
+        height="1"
+        width="1"
+        depth="0.01"
+        position="-9 -3.2 -1"
+        material="src:#poster3; shader: flat;"
+        rotation="0 0 0"
+        event-set__mouseenter="_target:#ring; color:#9E2509; scale:0.6 0.6 0.6"
+        event-set__mouseleave="_target:#ring; color:#0BFBFF; scale:0.3 0.3 0.3"
+        animation__reveal="property:position; to: -9 -1.2 -1; dur: 1000; startEvents:runAnimation;"
+        animation__hide="property:position; to: -9 -3.2 -1; dur: 1000; startEvents:click;"
+      >
+      </a-box>
+
+      <a-box
+        id="posterFour"
+        height="1"
+        width="1"
+        depth="0.01"
+        position="-5.6 -3 -2.4"
+        material="src:#poster4; shader: flat;"
+        rotation="0 0 0"
+        event-set__mouseenter="_target:#ring; color:#9E2509; scale:0.6 0.6 0.6"
+        event-set__mouseleave="_target:#ring; color:#0BFBFF; scale:0.3 0.3 0.3"
+        animation__reveal="property:position; to: -5.6 -1 -2.4; dur: 1000; startEvents:runAnimation;"
+        animation__hide="property:position; to: -5.6 -3 -2.4; dur: 1000; startEvents:click;"
+      >
+      </a-box>
+
+      <a-box
+        id="posterFive"
+        height="1"
+        width="1"
+        depth="0.01"
+        position="0.9 -1 -0.7"
+        material="src:#poster5; shader: flat;"
+        rotation="0 0 0"
+        event-set__mouseenter="_target:#ring; color:#9E2509; scale:0.6 0.6 0.6"
+        event-set__mouseleave="_target:#ring; color:#0BFBFF; scale:0.3 0.3 0.3"
+        animation__reveal="property:position; to: 0.9 0.8 -0.7; dur: 1000; startEvents:runAnimation;"
+        animation__hide="property:position; to: 0.9 -1 -0.7; dur: 1000; startEvents:click;"
+      >
+      </a-box>
+
+      <a-sky color="#B2C3A6"></a-sky>
+
+      <!----------------------Lights----------------->
+      <a-entity light="type:ambient; color:#FCD8AC; intensity:2;"></a-entity>
+
+      <!----------------------camera rig ------------>
+      <a-entity
+        id="rig"
+        movement-controls="constrainToNavMesh:true"
+        position="-12 -2 -1.7"
+        rotation="0 -90 0"
+      >
+        <!--add a camera-->
+        <a-entity camera position="0 0.75 0" look-controls>
+          <a-cursor
+            id="ring"
+            color="#0BFBFF"
+            sound="on: click; src: 3dAssets/audio/click.ogg"
+            scale="0.3 0.3 0.3"
+            position="0 0 -0.33213"
+          ></a-cursor>
+        </a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
